@@ -3,6 +3,21 @@ import nemo.collections.asr as nemo_asr
 import shutil
 import os
 from nemo.collections.asr.models import EncDecCTCModel
+from fastapi import FastAPI
+import os
+
+app = FastAPI()
+
+# Simple GET endpoint to test the server
+@app.get("/")
+async def root():
+    return {"message": "Hello from FastAPI on Render!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))  # Use Render's port or default 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
 app = FastAPI()
 
 # Load the ASR model once at startup
